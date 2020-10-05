@@ -1,3 +1,8 @@
+.header {
+  display: flex;
+  background-color: darkcyan;
+}
+
 .container {
   min-height: 100vh;
   padding: 0 0.5rem;

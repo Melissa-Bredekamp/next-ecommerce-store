@@ -8,9 +8,129 @@ body {
 
 a {
   color: inherit;
-  text-decoration: none;
+  /* text-decoration: none; */
 }
 
-* {
-  box-sizing: border-box;
+.divStyles {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logoImageStyles {
+  width: 160px;
+  height: 160px;
+  text-justify: center;
+}
+
+.headerStyles {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  background-color: #1b262c;
+  color: white;
+  text-align: left;
+  justify-content: space-between;
+  transition: color 0.2s;
+  background: cover;
+  padding-left: 20px;
+  z-index: 10;
+  opacity: 80%;
+}
+
+.navTextStyles {
+  display: inline;
+  justify-content: space-between;
+  gap: 40px;
+  width: 500px;
+  padding-top: 120px;
+  text-align: left;
+}
+
+.cartStyles {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+  padding: 60px 10px;
+  padding-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  text-align: right;
+  transition: color 0.2s;
+  line-height: 38px;
+  justify-content: space-between;
+}
+
+hover {
+  color: black;
+  cursor: pointer;
+  color: inherit;
+}
+main {
+  display: flexbox;
+  justify-content: space-between;
+  background-color: #1b262c;
+  color: white;
+  padding: 20px;
+}
+.mainImageStyles {
+  margin-top: 160px;
+  width: 500px;
+  height: 600px;
+  justify-content: space-between;
+  margin-right: 0px;
+}
+
+.container {
+  display: flexbox;
+  position: absolute;
+  text-justify: center;
+  color: white;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+footer {
+  margin-top: 0;
+  padding: 20px;
+  background: cover;
+  background-color: #1b262c;
+  color: mintcream;
+  font-weight: lighter;
+  font-size: 12px;
+  display: grid;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.aboutUsStyles {
+  display: flexbox;
+  justify-content: space-between;
+}
+
+.followUsStyles {
+  display: grid;
+}
+
+.iconstyles {
+  align-content: center;
+}
+
+.socialMediaStyles {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+  text-align: center;
 }

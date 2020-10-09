@@ -12,16 +12,22 @@ export default function Home() {
         <link rel="icon" href="/images/favicon.png" />
       </Head>
       <Layout>
-        <div>
-          <div className="container">
+        <img
+          className="moodImageStyles"
+          src="/images/moodturntable.jpeg"
+          alt=" mood turntable"
+        />
+
+        <div className="generalImageContainer">
+          <div className="imageContainer">
             <Link href="#a">
               <a>
                 <img
                   className="mainImageStyles"
-                  src="/images/bandbuttons.jpeg"
-                  alt="band buttons"
+                  src="/images/vinylwall.jpeg"
+                  alt="vinylwall"
                 />
-                <p>Album of the month</p>
+                <p>Album</p>
               </a>
             </Link>
 
@@ -29,20 +35,20 @@ export default function Home() {
               <a>
                 <img
                   className="mainImageStyles"
-                  src="/images/turntable.jpeg"
-                  alt="turn table"
+                  src="/images/vinylselection.jpeg"
+                  alt="vinylselection"
                 />
-                <p>Back to the Boogie: Review Time</p>
+                <p>Best Sellers</p>
               </a>
             </Link>
             <Link href="#a">
               <a>
                 <img
                   className="mainImageStyles"
-                  src="/images/vinylwall.jpeg"
-                  alt="vinyl wall"
+                  src="/images/bandbuttons.jpeg"
+                  alt="bandbuttons"
                 />
-                <p>Product info</p>
+                <p>The Classics</p>
               </a>
             </Link>
           </div>

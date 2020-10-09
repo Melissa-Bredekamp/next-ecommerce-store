@@ -4,90 +4,89 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #1b262c;
 }
 
 a {
   color: inherit;
-  /* text-decoration: none; */
+  text-decoration: none;
 }
-
 .divStyles {
   display: flex;
-  justify-content: space-between;
 }
 
 .logoImageStyles {
-  width: 160px;
-  height: 160px;
-  text-justify: center;
+  width: 120px;
+  height: 120px;
+  opacity: 100%;
 }
-
-.headerStyles {
+.logoflexStyles {
+  margin-right: 400px;
+}
+.headerDiv {
   display: flex;
+  justify-content: space-around;
+  padding-left: 1.5rem;
+  align-items: center;
   position: fixed;
-  width: 100%;
+  height: 160px;
   background-color: #1b262c;
-  color: white;
-  text-align: left;
-  justify-content: space-between;
-  transition: color 0.2s;
+  width: 100%;
   background: cover;
-  padding-left: 20px;
+  color: white;
+  padding: 20px;
   z-index: 10;
   opacity: 80%;
 }
 
-.navTextStyles {
-  display: inline;
-  justify-content: space-between;
-  gap: 40px;
-  width: 500px;
-  padding-top: 120px;
-  text-align: left;
+.navFlexStyles {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
-
 .cartStyles {
   width: 50px;
   height: 50px;
-  margin-right: 20px;
+  margin-right: 40px;
   padding: 60px 10px;
   padding-bottom: 0;
 }
-
-a {
-  text-decoration: none;
-  display: inline-block;
-  text-align: right;
-  transition: color 0.2s;
-  line-height: 38px;
-  justify-content: space-between;
-}
-
-hover {
-  color: black;
+/* :hover {
+  color: white;
   cursor: pointer;
   color: inherit;
+} */
+
+.moodImageStyles {
+  width: 100%;
+  height: 500px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 100px;
+  opacity: 0.8;
+  margin-top: 250px;
 }
+
 main {
-  display: flexbox;
-  justify-content: space-between;
   background-color: #1b262c;
   color: white;
   padding: 20px;
-}
-.mainImageStyles {
-  margin-top: 160px;
-  width: 500px;
-  height: 600px;
-  justify-content: space-between;
-  margin-right: 0px;
+  justify-items: center;
 }
 
-.container {
-  display: flexbox;
+.mainImageStyles {
+  width: 300px;
+  height: 300px;
+  margin: 30px;
+  margin-left: 100px;
+}
+
+.imageContainer {
+  display: flex;
   position: absolute;
   text-justify: center;
-  color: white;
+  gap: 20px;
+  justify-content: center;
 }
 
 .centered {
@@ -95,10 +94,50 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: white;
+  text-justify: center;
 }
 
+.individualProductStyles {
+  grid-area: 1 / 1 / 2 / 1;
+  display: grid;
+}
+
+.productImageStyles {
+  width: 250px;
+  height: 250px;
+}
+
+.albumStyles {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  margin-left: 80px;
+  margin-right: 80px;
+  gap: 80px 40px;
+  padding-top: 60px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 60px;
+  font-weight: lighter;
+  text-align: center;
+  color: mintcream;
+}
+
+.artistStyles {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.buttonStyles {
+  border-radius: 3px;
+  color: white;
+  background-color: #18a2cb;
+  border: 0;
+  text-align: center;
+  padding: 10px;
+}
 footer {
-  margin-top: 0;
   padding: 20px;
   background: cover;
   background-color: #1b262c;
@@ -108,23 +147,38 @@ footer {
   display: grid;
   justify-content: space-between;
   gap: 20px;
+  margin-top: 30vh;
+  padding-bottom: 40px;
+}
+
+.footerStyles {
+  margin: 25vh;
+  display: flex;
 }
 
 h2 {
   font-weight: bold;
-  font-size: 12px;
+  font-size: 11px;
 }
 
-.aboutUsStyles {
-  display: flexbox;
-  justify-content: space-between;
+h1 {
+  margin-top: 200px;
+  text-align: center;
 }
 
-.followUsStyles {
+p {
+  text-align: center;
+  margin: 10px;
+}
+
+.footerRowStyles {
   display: grid;
+  margin: 60px;
+  text-align: center;
 }
 
 .iconstyles {
+  display: grid;
   align-content: center;
 }
 
@@ -133,4 +187,21 @@ h2 {
   height: 50px;
   margin-right: 20px;
   text-align: center;
+}
+
+.checkoutStyles {
+  width: 500px;
+  height: 500px;
+  background-color: mintcream;
+  color: #1b262c;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.checkoutPageStyles {
+  justify-content: center;
+}
+.checkoutGrid {
+  display: flex;
+  justify-content: space-around;
 }

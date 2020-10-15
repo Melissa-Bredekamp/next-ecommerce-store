@@ -1,16 +1,19 @@
 export const products = [
   {
     id: '1',
-    artist: 'Pink Floyd',
-    album: 'Prism',
+    img: '/product-images/beastie-boys.png',
+    artist: 'Beastie Boys ',
+    album: 'License to Ill',
     price: '120 EUR',
-    quantity: false,
   },
   {
     id: '2',
-    artist: 'ACDC',
-    album: 'Back in Black',
+    img: '/product-images/bon-jovi.jpeg',
+    artist: 'Bon Jovi',
+    album: 'New Jersey',
     price: '120 EUR',
-    quantity: false,
   },
 ];
+export async function getUserById(id) {
+  if (!/^\d+$/.test(id)) return undefined;
+}

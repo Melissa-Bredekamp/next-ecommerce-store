@@ -7,10 +7,16 @@ body {
   background-color: #1b262c;
 }
 
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
+
 .divStyles {
   display: flex;
 }
@@ -21,7 +27,7 @@ a {
   opacity: 100%;
 }
 .logoflexStyles {
-  margin-right: 400px;
+  margin-right: 230px;
 }
 .headerDiv {
   display: flex;
@@ -147,8 +153,8 @@ footer {
   display: grid;
   justify-content: space-between;
   gap: 20px;
-  margin-top: 30vh;
-  padding-bottom: 40px;
+  margin-top: 20vh;
+  padding-bottom: 20px;
 }
 
 .footerStyles {
@@ -204,4 +210,37 @@ p {
 .checkoutGrid {
   display: flex;
   justify-content: space-around;
+}
+
+.aboutUsImageStyles {
+  display: flex;
+}
+
+.aboutPageImageStyles {
+  width: 400px;
+  height: 600px;
+  margin-top: 250px;
+  opacity: 0.8;
+  margin-left: 50px;
+}
+.aboutUsTextStyles {
+  margin-top: 10px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 0px;
+  padding: 10px;
+  line-height: 2.2;
+  color: mintcream;
+  font-size: 13px;
+}
+.productSelectStyles {
+  margin-top: 250px;
+}
+
+.productNotFoundPage {
+  color: mintcream;
+  text-align: center;
+  font-size: 80px;
+  font-weight: bold;
+  margin-top: 250;
 }

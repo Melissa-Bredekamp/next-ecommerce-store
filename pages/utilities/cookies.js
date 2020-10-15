@@ -1,24 +1,26 @@
-import cookie from 'js-cookie';
+import Cookie from 'js-cookie';
 
-export function getSelectProductFromCookies() {
-  const selectProduct = cookie.getJSON('selectProduct') || [];
-  return selectProduct;
+export function selectProductFromCookies() {
+  const productCart = Cookie.getJSON('productCart') || [];
+  return productCart;
 }
 
 export function newProductInCookie(id) {
-  const selectProduct = getSelectProductFromCookies();
+  const productCart = selectProductFromCookies();
 
-  let newSelectedProduct;
+  const newProductCart = [...productCart, { id: id }];
 
-  if (selectProduct.includes(id)) {
-    newSelectedProduct = selectProduct.filter(
-      (showNewSelectedProduct) => showNewSelectedProduct !== id,
-    );
-  } else {
-    newSelectedProduct = [...selectProduct, id];
-  }
+  Cookie.set('productCart', newProductCart);
 
-  cookie.set('selectProduct', newSelectedProduct);
+  return newProductCart;
+}
 
-  return newSelectedProduct;
+export function removeFromCookie(id) {
+  const productCart = selectProductFromCookies();
+  const newProductCart = productCart.filter((item) => item.id !== id);
+
+  Cookie.set('cart', newProductCart);
+  console.log('removed item, updated cart', newProductCart);
+
+  return newProductCart;
 }

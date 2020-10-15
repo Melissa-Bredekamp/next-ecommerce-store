@@ -20,37 +20,43 @@ export default function Home() {
 
         <div className="generalImageContainer">
           <div className="imageContainer">
-            <Link href="#a">
-              <a>
-                <img
-                  className="mainImageStyles"
-                  src="/images/vinylwall.jpeg"
-                  alt="vinylwall"
-                />
-                <p>Album</p>
-              </a>
-            </Link>
+            <div>
+              <Link href="/albums">
+                <a>
+                  <img
+                    className="mainImageStyles"
+                    src="/images/vinylwall.jpeg"
+                    alt="vinylwall"
+                  />
+                  <p>Album</p>
+                </a>
+              </Link>
+            </div>
 
-            <Link href="#a">
-              <a>
-                <img
-                  className="mainImageStyles"
-                  src="/images/vinylselection.jpeg"
-                  alt="vinylselection"
-                />
-                <p>Best Sellers</p>
-              </a>
-            </Link>
-            <Link href="#a">
-              <a>
-                <img
-                  className="mainImageStyles"
-                  src="/images/bandbuttons.jpeg"
-                  alt="bandbuttons"
-                />
-                <p>The Classics</p>
-              </a>
-            </Link>
+            <div>
+              <Link href="/best-seller">
+                <a>
+                  <img
+                    className="mainImageStyles"
+                    src="/images/vinylselection.jpeg"
+                    alt="vinylselection"
+                  />
+                  <p>Best Sellers</p>
+                </a>
+              </Link>
+            </div>
+            <div>
+              <Link href="/the-classics">
+                <a>
+                  <img
+                    className="mainImageStyles"
+                    src="/images/bandbuttons.jpeg"
+                    alt="bandbuttons"
+                  />
+                  <p>The Classics</p>
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
       </Layout>

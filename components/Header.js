@@ -17,7 +17,7 @@ export default function Header() {
         </Link>
 
         <div className="logoflexStyles">
-          <Link href="#a">
+          <Link href="/">
             <a>
               <img
                 className="logoImageStyles"
@@ -27,8 +27,11 @@ export default function Header() {
             </a>
           </Link>
         </div>
+        <Link href="/about-us">
+          <a>About Us</a>
+        </Link>
         <div>
-          <Link href="/checkout">
+          <Link href="/cart">
             <a>
               <img
                 className="cartStyles"

@@ -7,7 +7,22 @@ import { products } from '../utilities/database';
 import { newProductInCookie, removeFromCookie } from '../utilities/cookies';
 
 export default function ProductList(props) {
-  const [selectProduct, setSelectProduct] = useState(props.selectProduct);
+  const [productCart, setProductCart] = useState(
+    props.newProductCartFromCookie,
+  );
+  function updatedProductCart(id) {
+    const newCartList = removeFromCookie(id);
+    setProductCart(newCartList);
+  }
+
+  // const [cartTotal, setCartTotal] = useState(0);
+
+  // addToCart = (product) => {
+  //   setCartTotal({
+  //     cart: [...this.state.cart, product],
+  //   });
+  //   addToCookie.setItem('cart', JSON.stringify(cartTotal.cart));
+  // };
 
   return (
     <div>
@@ -20,39 +35,42 @@ export default function ProductList(props) {
           <ul className="productSelectStyles">
             {products.map((product) => {
               return (
-                <li key={product.id}>
-                  <Link href={`/products/${product.id}`}>
-                    <a>
-                      <img src={product.image} alt="album" />
-                      {product.id}
-                      <br />
-                      {product.artist}
-                      <br />
-                      {product.album}
-                      <br />
-                      {product.price}
-                      <br />
-                    </a>
-                  </Link>
-                  <button
-                    id={product.id}
-                    className="buttonStyles"
-                    onClick={(e) => {
-                      newProductInCookie(product.id);
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                  <button
-                    className="buttonStyles"
-                    onClick={(e) => {
-                      removeFromCookie(product.id);
-                    }}
-                  >
-                    Delete from Cart
-                  </button>
-                  <button className="buttonStyles">Back to Shop</button>
-                </li>
+                <div>
+                  <li key={product.id}>
+                    <Link href={`/products/${product.id}`}>
+                      <a className="productListsImagesStyles">
+                        <img
+                          className="dynamicPageImageStyles"
+                          src={product.img}
+                          alt="album"
+                        />
+                        <div className="productListsTextStyles">
+                          {product.id}
+                          <br />
+                          {product.artist}
+                          <br />
+                          {product.album}
+                          <br />
+                          {product.price}
+                          <br />
+                        </div>
+                      </a>
+                    </Link>
+                    <div className="buttonFlexStyles">
+                      <button
+                        id={product.id}
+                        className="buttonStyles"
+                        onClick={(e) => {
+                          newProductInCookie(product.id);
+                        }}
+                      >
+                        Add to Cart
+                      </button>
+
+                      <button className="buttonStyles">Back to Shop</button>
+                    </div>
+                  </li>
+                </div>
               );
             })}
           </ul>
@@ -62,16 +80,14 @@ export default function ProductList(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export function getServerSideProps(context) {
   const allCookies = nextCookies(context);
   console.log(context);
-  const selectProduct = allCookies.selectProduct || [];
-  const id = allCookies.id || [];
+  const productCart = allCookies.productCart || [];
 
   return {
     props: {
-      id: id,
-      selectProduct: selectProduct,
+      newProductcartFromCookie: productCart,
     },
   };
 }

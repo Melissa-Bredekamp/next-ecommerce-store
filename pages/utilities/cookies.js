@@ -16,11 +16,20 @@ export function newProductInCookie(id) {
 }
 
 export function removeFromCookie(id) {
-  const productCart = selectProductFromCookies();
-  const newProductCart = productCart.filter((item) => item.id !== id);
+  const cart = selectProductFromCookies();
+  const newProductCart = cart.filter((item) => item.id !== id);
 
-  Cookie.set('cart', newProductCart);
+  Cookie.set('productCart', newProductCart);
   console.log('removed item, updated cart', newProductCart);
+
+  return newProductCart;
+}
+
+export function addItemToCookie(id) {
+  const cart = selectProductFromCookies();
+  const newProductCart = cart.filter((item) => item.id === id);
+
+  Cookie.set('productCart', newProductCart);
 
   return newProductCart;
 }

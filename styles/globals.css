@@ -7,9 +7,15 @@ body {
   background-color: #1b262c;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+@media (max-width: 1000px) {
+  button {
+    width: 70vw;
+  }
 }
-(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+@media (max-width: 800px) {
+  button {
+    width: 75vw;
+  }
 }
 
 a {
@@ -142,6 +148,11 @@ main {
   border: 0;
   text-align: center;
   padding: 10px;
+  margin-top: 30px;
+}
+.buttonFlexStyles {
+  display: flex;
+  justify-content: space-around;
 }
 footer {
   padding: 20px;
@@ -197,11 +208,12 @@ p {
 
 .checkoutStyles {
   width: 500px;
-  height: 500px;
+  height: 800px;
   background-color: mintcream;
   color: #1b262c;
   text-align: center;
   border-radius: 2px;
+  justify-content: center;
 }
 
 .checkoutPageStyles {
@@ -242,5 +254,28 @@ p {
   text-align: center;
   font-size: 80px;
   font-weight: bold;
-  margin-top: 250;
+  margin-top: 250px;
+  padding: 30px;
+}
+.cartImageStyles {
+  width: 120px;
+  height: 120px;
+  margin-top: 30px;
+}
+
+.cartLayoutStyles {
+  display: flex;
+  justify-content: space-around;
+  line-height: 2.2;
+}
+.dynamicPageImageStyles {
+  width: 400px;
+  height: 400px;
+}
+.productListsImagesStyles {
+  display: flex;
+  justify-content: space-around;
+}
+.productListsTextStyles {
+  line-height: 2.2;
 }

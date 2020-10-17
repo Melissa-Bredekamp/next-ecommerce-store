@@ -6,9 +6,18 @@ import {
   selectProductFromCookies,
   removeFromCookie,
 } from './utilities/cookies';
+import { useState } from 'react';
 
 export default function Cart(props) {
-  const productCart = selectProductFromCookies();
+  const [productCart, setProductCart] = useState(
+    props.newProductCartFromCookie,
+  );
+  function updatedProductCart(id) {
+    const newCartList = removeFromCookie(id);
+    setProductCart(newCartList);
+  }
+
+  // const productCart = selectProductFromCookies();
   return (
     <div>
       <Head>
@@ -26,8 +35,15 @@ export default function Cart(props) {
                 });
                 return (
                   <div>
-                    <div>
-                      <img src={product.image} alt="album" />
+                    <div className="cartLayoutStyles">
+                      <div>
+                        <img
+                          className="cartImageStyles"
+                          src={product.img}
+                          alt="album"
+                        />
+                      </div>
+                      <br />
                       {product.id}
                       <br />
                       {product.artist}
@@ -37,16 +53,14 @@ export default function Cart(props) {
                       {product.price}
                       <br />
                     </div>
-
+                    <br />
+                    <input id="number" type="number"></input>
+                    <br />
                     <div className="checkoutGrid">
-                      <button className="buttonStyles">
-                        Add one more Item
-                      </button>
-                      <br />
                       <button
                         className="buttonStyles"
                         onClick={(e) => {
-                          removeFromCookie(product.id);
+                          updatedProductCart(product.id);
                         }}
                       >
                         Delete from Cart
@@ -63,13 +77,14 @@ export default function Cart(props) {
     </div>
   );
 }
-
 export function getServerSideProps(context) {
   const allCookies = nextCookies(context);
+  console.log(context);
   const productCart = allCookies.productCart || [];
+
   return {
     props: {
-      productCart: productCart,
+      newProductCartFromCookie: productCart,
     },
   };
 }

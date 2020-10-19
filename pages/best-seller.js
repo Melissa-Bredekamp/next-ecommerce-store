@@ -92,10 +92,10 @@ export default function BestSeller() {
                   <img
                     className="productImageStyles"
                     src="/product-images/queen.jpg"
-                    alt="Works Album"
+                    alt="The Works Album"
                   />
                   <p className="artistStyles">Queen</p>
-                  <p>Works</p>
+                  <p>The Works</p>
                   <p>120 EUR</p>
                 </a>
               </Link>
@@ -120,7 +120,7 @@ export default function BestSeller() {
                   <img
                     className="productImageStyles"
                     src="/product-images/whitney-houston.png"
-                    alt="Whitney"
+                    alt="Whitney Album"
                   />
                   <p className="artistStyles">Whitney Houston</p>
                   <p>Whitney</p>

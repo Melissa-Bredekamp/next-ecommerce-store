@@ -91,7 +91,7 @@ export default function Albums() {
                   <img
                     className="productImageStyles"
                     src="/product-images/guns-n-roses.jpg"
-                    alt="Appetite For Destruction"
+                    alt="Appetite For Destruction Album"
                   />
                   <p className="artistStyles">Guns 'n Roses</p>
                   <p>Appetite For Destruction</p>
@@ -105,7 +105,7 @@ export default function Albums() {
                   <img
                     className="productImageStyles"
                     src="/product-images/david-bowie.jpg"
-                    alt="Scary Monsters"
+                    alt="Scary Monsters Album"
                   />
                   <p className="artistStyles">David Bowie</p>
                   <p>Scary Monsters</p>

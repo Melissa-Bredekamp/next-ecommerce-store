@@ -1,28 +1,43 @@
-export const products = [
+import postgres from 'postgres';
+import dotenv from 'dotenv';
+import camelcaseKeys from 'camelcase-keys';
+
+dotenv.config();
+
+const sql = postgres();
+
+export async function getAlbums() {
+  const albums = await sql`
+SELECT * from albums;
+`;
+  return albums.map(camelcaseKeys);
+}
+
+export const albums = [
   {
     id: '1',
-    img: '/product-images/beastie-boys.png',
+    productImage: '/product-images/beastie-boys.png',
     artist: 'Beastie Boys ',
     album: 'License to Ill',
     price: '120 EUR',
   },
   {
     id: '2',
-    img: '/product-images/bon-jovi.jpeg',
+    productImage: '/product-images/bon-jovi.jpeg',
     artist: 'Bon Jovi',
     album: 'New Jersey',
     price: '120 EUR',
   },
   {
     id: '3',
-    img: '/product-images/iron-maiden.jpg',
+    productImage: '/product-images/iron-maiden.jpg',
     artist: 'Iron Maiden',
     album: 'Somewhere in Time Album',
     price: '120 EUR',
   },
   {
     id: '4',
-    img: '/product-images/prince.png',
+    productImage: '/product-images/prince.png',
     artist: 'Prince',
     album: 'Purple Rain Album',
     price: '120 EUR',

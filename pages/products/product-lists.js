@@ -3,26 +3,34 @@ import Head from 'next/head';
 import Link from 'next/link';
 import nextCookies from 'next-cookies';
 import Layout from '../../components/Layout';
-import { products } from '../utilities/database';
-import { newProductInCookie, removeFromCookie } from '../utilities/cookies';
+import {
+  newProductInCookie,
+  removeFromCookie,
+  selectProductFromCookies,
+} from '../utilities/cookies';
 
 export default function ProductList(props) {
   const [productCart, setProductCart] = useState(
     props.newProductCartFromCookie,
   );
+  // const sumTotalOfProductsCalculator = sumTotalOfProducts();
+  // const [productsInCart, setProductsInCart] = useState(props.props.albums);
+
+  // useEffect(() => {
+  //   setProductsInCart(
+  //     props.props.albums.map((product) => {
+  //       return {
+  //         ...product,
+  //         inCart: productFromCookie,
+  //       };
+  //     }),
+  //     );
+  //   }, [props.props.albums, productFromCookie, setProductsInCart]);
+
   function updatedProductCart(id) {
     const newCartList = removeFromCookie(id);
     setProductCart(newCartList);
   }
-
-  // const [cartTotal, setCartTotal] = useState(0);
-
-  // addToCart = (product) => {
-  //   setCartTotal({
-  //     cart: [...this.state.cart, product],
-  //   });
-  //   addToCookie.setItem('cart', JSON.stringify(cartTotal.cart));
-  // };
 
   return (
     <div>
@@ -33,7 +41,7 @@ export default function ProductList(props) {
       <Layout>
         <main>
           <ul className="productSelectStyles">
-            {products.map((product) => {
+            {props.albums.map((product) => {
               return (
                 <div>
                   <li key={product.id}>
@@ -41,15 +49,17 @@ export default function ProductList(props) {
                       <a className="productListsImagesStyles">
                         <img
                           className="dynamicPageImageStyles"
-                          src={product.img}
-                          alt="album"
+                          src={product.productImage}
+                          alt={product.alt}
                         />
                         <div className="productListsTextStyles">
-                          {product.id}
-                          <br />
+                          {/* {product.id} */}
+                          {/* <br /> */}
                           {product.artist}
                           <br />
                           {product.album}
+                          <br />
+                          {product.year}
                           <br />
                           {product.price}
                           <br />
@@ -66,6 +76,14 @@ export default function ProductList(props) {
                       >
                         Add to Cart
                       </button>
+                      <button
+                        className="buttonStyles"
+                        onClick={(e) => {
+                          updatedProductCart(product.id);
+                        }}
+                      >
+                        Delete
+                      </button>
 
                       <button className="buttonStyles">Back to Shop</button>
                     </div>
@@ -80,13 +98,41 @@ export default function ProductList(props) {
   );
 }
 
-export function getServerSideProps(context) {
+export async function getServerSideProps(context) {
+  const { getAlbums } = await import('../utilities/database');
+  const albums = await getAlbums();
+  // const id = context.query.id;
   const allCookies = nextCookies(context);
   console.log(context);
   const productCart = allCookies.productCart || [];
+  // const numberOfProductsAsStrings = Object.values(allCookies);
+  // const intNumberOfProducts = numberOfProductsAsStrings.map((string) => parseInt(string),
+  // );
+
+  // function calculateSumOfProducts(arrayOfValues: number[]): number {
+  //   if (arrayOfValues.length > 0) {
+  //     let total = arrayOfValues[0];
+  //     for (let i = 1; i < arrayOfValues.length; i++) {
+  //       total += arrayOfValues[i];
+  //     }
+  //     return total;
+  //   } else {
+  //     return 0;
+  //   }
+  // }
+
+  // const sumTotalOfProducts = calculateSumOfProducts (intNumberOfProducts);
+
+  const productInCart = allCookies.product || [];
 
   return {
     props: {
+      // props,
+      // id,
+      albums,
+      // sumTotalOfProducts,
+      allCookies,
+      productCookies: productInCart,
       newProductcartFromCookie: productCart,
     },
   };

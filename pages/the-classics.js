@@ -79,7 +79,7 @@ export default function TheClassics() {
                     src="/product-images/michael-jackson.png"
                     alt="Thriller Album"
                   />
-                  <p className="artistStyles">Micheal jackson</p>
+                  <p className="artistStyles">Micheal Jackson</p>
                   <p>Thriller</p>
                   <p>120 EUR</p>
                 </a>

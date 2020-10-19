@@ -1,20 +1,69 @@
 import Layout from '../../components/Layout';
 import Head from 'next/head';
-import { products } from '../utilities/database';
 import nextCookies from 'next-cookies';
-import { newProductInCookie, removeFromCookie } from '../utilities/cookies';
-import { useState } from 'react';
+import {
+  addItemToCookie,
+  newProductInCookie,
+  sumTotalOfProducts,
+} from '../utilities/cookies';
+import { useEffect, useState } from 'react';
 
 export default function SingleProduct(props) {
-  // const [selectProduct, setSelectProduct] = useState(props.selectProduct);
+  const sumTotalOfProductsCalculator = sumTotalOfProducts();
+  const [numberOfProductsInCart, setNumberOfProductsInCart] = useState(
+    props.sumOfProducts,
+  );
+  // const [productCount, setProductCount] = useState(0);
 
-  const product = products.find((currentProduct) => {
-    if (currentProduct.id === props.id) {
-      return true;
+  // const [artist, setArtist] = useState(productInfo.artist);
+  // const [album, setalbum] = useState(productInfo.album);
+  // const [year, setYear] = useState(productInfo.year);
+  // const [price, setPrice] = useState(productInfo.price);
+  // const [productImgage, setProductImgage] = useState(productInfo.productImgage);
+  // const [altTag, setAltTag] = useState(productInfo.alt);
+
+  const [productFromCookie, setProductFromCookie] = useState(
+    props.productCookies,
+  );
+  const [productInCart, setProductInCart] = useState([]);
+  const id = props.id;
+  const [cookieCount, setCookieCount] = useState(0);
+  const [productId, setProductId] = useState(parseInt(props.id));
+
+  function findAlbumInfo() {
+    for (let i = 0; i < props.albums.length; i++) {
+      if (props.albums[i].id === productId) {
+        return props.albums[i];
+      }
     }
-    return false;
-  });
-  if (!product) {
+  }
+
+  const albumInfo = findAlbumInfo();
+  console.log(albumInfo);
+  // console.log(props.ProductInCart);
+
+  // useEffect(() => {
+  //   setProductInCart(newProductInCookie(productId));
+  //   setCookieCount(productInCart[0]?.count);
+  // }, [props.albums, productFromCookie, setProductInCart, addItemToCookie]);
+  //     return {
+  //       ...product,
+  //       inCart: productFromCookie.includes(product.id),
+  //     };
+  //   }),
+  // );
+  // }, [props.albums, productFromCookie, setProductsInCart, newProductInCookie]);
+
+  // function handleChange(event) {
+  //   setCookieCount(event.target.value);
+  // }
+  // const product = props.albums.find((currentProduct) => {
+  //   if (currentProduct.id === props.id) {
+  //     return true;
+  //   }
+  //   return false;
+  // });
+  if (!props.albums) {
     return (
       <div>
         <Head>
@@ -41,43 +90,45 @@ export default function SingleProduct(props) {
         </Head>
         <Layout>
           <main>
+            {/* key={props.album} */}
             <div className="productStyles">
               <h1>Product</h1>
-              <img src={product.img} alt="album" />
+              <img src={props.productImage} alt={props.alt} />
               <br />
               <div>
-                {product.id}
+                {props.id}
+                {/* <br />
+                <br /> */}
+                {props.artist}
                 <br />
+                {props.album}
                 <br />
-                {product.artist}
+                {props.year}
                 <br />
-                <br />
-                {product.album}
-                <br />
-                <br />
-                {product.price}
-                <br />
+                {props.price}
                 <br />
               </div>
+              <input
+                id="number"
+                type="number"
+                placeholder="0"
+                onChange={(e) => {
+                  setCookieCount(e.target.value);
+                  addItemToCookie(props.id);
+                }}
+              ></input>
 
               <button
-                id={product.id}
+                id={props.id}
                 className="buttonStyles"
                 onClick={(e) => {
-                  newProductInCookie(product.id);
+                  newProductInCookie(props.id);
                 }}
               >
                 Add to Cart
               </button>
-              <button
-                className="buttonStyles"
-                id={product.id}
-                onClick={(e) => {
-                  // setSelectProduct(removeFromCookie(props.product.id));
-                }}
-              >
-                Delete
-              </button>
+              {/* <AddToCart id={id} cookieCount={cookieCount}></AddToCart> */}
+
               <button className="buttonStyles">Back to Shop</button>
             </div>
           </main>
@@ -87,15 +138,39 @@ export default function SingleProduct(props) {
   );
 }
 
-export function getServerSideProps(context) {
+export async function getServerSideProps(context) {
+  const { getAlbums } = await import('../utilities/database');
+  const albums = await getAlbums();
   const allCookies = nextCookies(context);
   console.log(context);
   const productCart = allCookies.productCart || [];
 
+  const numberOfProducts = Object.values(allCookies);
+  const reducer = (accumulator, currentValue) =>
+    parseInt(accumulator) + parseInt(currentValue);
+
+  function calculateSumOfProducts() {
+    if (numberOfProducts.length > 0) {
+      return numberOfProducts.reduce(reducer);
+    } else {
+      return 0;
+    }
+  }
+
+  const sumTotalOfProducts = calculateSumOfProducts();
+
+  const productId = parseInt(context.query.id);
+  const ProductInCart = allCookies.product || [];
+
   return {
     props: {
+      albums,
+      // sumTotalOfProducts,
       id: context.query.id,
       newProductCartFromCookie: productCart,
+      allCookies,
+      productCookies: ProductInCart,
+      id: productId,
     },
   };
 }

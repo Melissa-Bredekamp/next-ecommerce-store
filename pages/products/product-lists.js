@@ -5,8 +5,8 @@ import nextCookies from 'next-cookies';
 import Layout from '../../components/Layout';
 import {
   newProductInCookie,
-  removeFromCookie,
-  selectProductFromCookies,
+  removeItemFromCookie,
+  getCookie,
 } from '../utilities/cookies';
 
 export default function ProductList(props) {
@@ -27,10 +27,10 @@ export default function ProductList(props) {
   //     );
   //   }, [props.props.albums, productFromCookie, setProductsInCart]);
 
-  function updatedProductCart(id) {
-    const newCartList = removeFromCookie(id);
-    setProductCart(newCartList);
-  }
+  // function updatedProductCart(id) {
+  //   const newCartList = removeItemFromCookie(id);
+  //   setProductCart(newCartList);
+  // }
 
   return (
     <div>
@@ -52,6 +52,7 @@ export default function ProductList(props) {
                           src={product.productImage}
                           alt={product.alt}
                         />
+
                         <div className="productListsTextStyles">
                           {/* {product.id} */}
                           {/* <br /> */}
@@ -71,21 +72,12 @@ export default function ProductList(props) {
                         id={product.id}
                         className="buttonStyles"
                         onClick={(e) => {
-                          newProductInCookie(product.id);
+                          newProductInCookie(product.id, product.quantity);
+                          // console.log(product.productImage);
                         }}
                       >
                         Add to Cart
                       </button>
-                      <button
-                        className="buttonStyles"
-                        onClick={(e) => {
-                          updatedProductCart(product.id);
-                        }}
-                      >
-                        Delete
-                      </button>
-
-                      <button className="buttonStyles">Back to Shop</button>
                     </div>
                   </li>
                 </div>
@@ -101,36 +93,16 @@ export default function ProductList(props) {
 export async function getServerSideProps(context) {
   const { getAlbums } = await import('../utilities/database');
   const albums = await getAlbums();
-  // const id = context.query.id;
+
   const allCookies = nextCookies(context);
-  console.log(context);
+  // console.log(context);
   const productCart = allCookies.productCart || [];
-  // const numberOfProductsAsStrings = Object.values(allCookies);
-  // const intNumberOfProducts = numberOfProductsAsStrings.map((string) => parseInt(string),
-  // );
-
-  // function calculateSumOfProducts(arrayOfValues: number[]): number {
-  //   if (arrayOfValues.length > 0) {
-  //     let total = arrayOfValues[0];
-  //     for (let i = 1; i < arrayOfValues.length; i++) {
-  //       total += arrayOfValues[i];
-  //     }
-  //     return total;
-  //   } else {
-  //     return 0;
-  //   }
-  // }
-
-  // const sumTotalOfProducts = calculateSumOfProducts (intNumberOfProducts);
 
   const productInCart = allCookies.product || [];
 
   return {
     props: {
-      // props,
-      // id,
       albums,
-      // sumTotalOfProducts,
       allCookies,
       productCookies: productInCart,
       newProductcartFromCookie: productCart,

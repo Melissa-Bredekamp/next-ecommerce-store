@@ -209,18 +209,18 @@ p {
   text-align: center;
 }
 
-.checkoutStyles {
-  width: 500px;
+.carInfotStyles {
+  width: 50vw;
   height: 800px;
   background-color: mintcream;
   color: #1b262c;
   text-align: center;
   border-radius: 2px;
-  justify-content: center;
+  align-content: center;
 }
 
 .checkoutPageStyles {
-  justify-content: center;
+  align-content: center;
 }
 .checkoutGrid {
   display: flex;
@@ -281,4 +281,23 @@ p {
 }
 .productListsTextStyles {
   line-height: 2.2;
+}
+.thankYoubuttonStyles {
+  border-radius: 3px;
+  color: white;
+  background-color: #18a2cb;
+  border: 0;
+  text-align: center;
+  padding: 10px;
+  margin-top: 50px;
+  width: 150px;
+  margin-bottom: 50px;
+  margin-left: 230px;
+}
+
+.checkoutStyles {
+  display: grid;
+  align-content: center;
+  line-height: 3;
+  padding: 80px;
 }

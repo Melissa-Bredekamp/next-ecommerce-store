@@ -4,7 +4,7 @@ import camelcaseKeys from 'camelcase-keys';
 
 dotenv.config();
 
-const sql = postgres();
+const sql = postgres({ idle_timeout: 5 });
 
 export async function getAlbums() {
   const albums = await sql`
@@ -43,6 +43,10 @@ export const albums = [
     price: '120 EUR',
   },
 ];
-export async function getUserById(id) {
+export async function getProductById(id) {
   if (!/^\d+$/.test(id)) return undefined;
+}
+
+export function getAlbumById(albumId) {
+  return albums.find((album) => album.id === albumId);
 }

@@ -1,33 +1,46 @@
 import Cookie from 'js-cookie';
 
-export function selectProductFromCookies() {
-  const productCart = Cookie.getJSON('productCart') || [];
+export function getCookie() {
+  const productCart = Cookie.getJSON('album') || [];
   return productCart;
 }
 
 export function newProductInCookie(id) {
-  const productCart = selectProductFromCookies();
+  const productCart = getCookie();
+  // This function find the matching object
+  const matchingProduct = productCart.find((product) => product.id === id);
+  let newProductCart;
+  // When there is no matching object this adds one object to the array
+  if (!matchingProduct) {
+    newProductCart = [...productCart, { id, quantity: 1 }];
+  } else {
+    // If there is a matching object this increments the quantity on object
+    newProductCart = productCart.map((product) => {
+      if (product.id === id) {
+        product.quantity = product.quantity + 1;
+      }
+      return product;
+    });
+  }
 
-  const newProductCart = [...productCart, { id: id }];
-
-  Cookie.set('productCart', newProductCart);
+  Cookie.set('album', newProductCart);
 
   return newProductCart;
 }
 
-export function removeFromCookie(id) {
-  const cart = selectProductFromCookies();
+export function removeItemFromCookie(id) {
+  const cart = getCookie();
 
   const newProductCart = cart.filter((item) => item.id !== id);
 
-  Cookie.set('productCart', newProductCart);
+  Cookie.set('album', newProductCart);
   console.log('removed item, updated cart', newProductCart);
 
   return newProductCart;
 }
 
 export function addItemToCookie(id) {
-  const cart = selectProductFromCookies();
+  const cart = getCookie();
   const addProduct = 1;
 
   const newProductCart = cart.map((item) => {
@@ -37,13 +50,14 @@ export function addItemToCookie(id) {
     return item;
   });
 
-  Cookie.set('productCart', newProductCart);
+  Cookie.set('album', newProductCart);
+  // console.log(productCart);
 
   return newProductCart;
 }
 
 export function sumTotalOfProducts() {
-  const cart = selectProductFromCookies();
+  const cart = getCookie();
 
   const findCartValues = cart.map((item) => item.count);
 
@@ -51,7 +65,7 @@ export function sumTotalOfProducts() {
     parseInt(accumulator) + parseInt(currentValue);
 
   function calculateSumOfProducts() {
-    if (cart.length < 0) {
+    if (cart.length > 0) {
       return findCartValues.reduce(reducer);
     } else {
       return 0;

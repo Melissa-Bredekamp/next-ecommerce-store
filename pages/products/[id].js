@@ -1,38 +1,19 @@
 import Layout from '../../components/Layout';
 import Head from 'next/head';
 import nextCookies from 'next-cookies';
-import {
-  addItemToCookie,
-  newProductInCookie,
-  sumTotalOfProducts,
-} from '../utilities/cookies';
-import { useEffect, useState } from 'react';
+import { newProductInCookie } from '../utilities/cookies';
+import { useState } from 'react';
+import Link from 'next/link';
 
 export default function SingleProduct(props) {
-  const sumTotalOfProductsCalculator = sumTotalOfProducts();
-  const [numberOfProductsInCart, setNumberOfProductsInCart] = useState(
-    props.sumOfProducts,
-  );
-  // const [productCount, setProductCount] = useState(0);
-
-  // const [artist, setArtist] = useState(productInfo.artist);
-  // const [album, setalbum] = useState(productInfo.album);
-  // const [year, setYear] = useState(productInfo.year);
-  // const [price, setPrice] = useState(productInfo.price);
-  // const [productImgage, setProductImgage] = useState(productInfo.productImgage);
-  // const [altTag, setAltTag] = useState(productInfo.alt);
-
-  const [productFromCookie, setProductFromCookie] = useState(
-    props.productCookies,
-  );
-  const [productInCart, setProductInCart] = useState([]);
-  const id = props.id;
-  const [cookieCount, setCookieCount] = useState(0);
-  const [productId, setProductId] = useState(parseInt(props.id));
+  // const [productId, setProductId] = useState(props.id);
+  // console.log(props);
 
   function findAlbumInfo() {
+    // this function loops through the length of the array of albums starting at 0
+    // if the id property of an album equals the selected product id, it returns the properties of this id information
     for (let i = 0; i < props.albums.length; i++) {
-      if (props.albums[i].id === productId) {
+      if (props.albums[i].id === parseInt(props.id)) {
         return props.albums[i];
       }
     }
@@ -40,30 +21,8 @@ export default function SingleProduct(props) {
 
   const albumInfo = findAlbumInfo();
   console.log(albumInfo);
-  // console.log(props.ProductInCart);
 
-  // useEffect(() => {
-  //   setProductInCart(newProductInCookie(productId));
-  //   setCookieCount(productInCart[0]?.count);
-  // }, [props.albums, productFromCookie, setProductInCart, addItemToCookie]);
-  //     return {
-  //       ...product,
-  //       inCart: productFromCookie.includes(product.id),
-  //     };
-  //   }),
-  // );
-  // }, [props.albums, productFromCookie, setProductsInCart, newProductInCookie]);
-
-  // function handleChange(event) {
-  //   setCookieCount(event.target.value);
-  // }
-  // const product = props.albums.find((currentProduct) => {
-  //   if (currentProduct.id === props.id) {
-  //     return true;
-  //   }
-  //   return false;
-  // });
-  if (!props.albums) {
+  if (!albumInfo) {
     return (
       <div>
         <Head>
@@ -75,12 +34,16 @@ export default function SingleProduct(props) {
             Oops...
             <br />
             Sorry about that. <br />
-            This product is not found
+            This product was not found
           </div>
         </Layout>
       </div>
     );
   }
+  // console.log(props);
+  // console.log(props.id);
+  // console.log(props);
+
   return (
     <div>
       <div>
@@ -90,46 +53,39 @@ export default function SingleProduct(props) {
         </Head>
         <Layout>
           <main>
-            {/* key={props.album} */}
-            <div className="productStyles">
-              <h1>Product</h1>
-              <img src={props.productImage} alt={props.alt} />
-              <br />
-              <div>
-                {props.id}
-                {/* <br />
-                <br /> */}
-                {props.artist}
+            <div>
+              <div className="productStyles">
+                <h1>Product</h1>
+                <img src={albumInfo.productImage} alt={props.alt} />
                 <br />
-                {props.album}
-                <br />
-                {props.year}
-                <br />
-                {props.price}
-                <br />
+                <div>
+                  {albumInfo.artist}
+
+                  <br />
+                  {albumInfo.album}
+                  <br />
+                  {albumInfo.year}
+                  <br />
+                  {albumInfo.price}
+                  <br />
+                </div>
+
+                <button
+                  id={albumInfo.id}
+                  className="buttonStyles"
+                  onClick={(e) => {
+                    setProductId(newProductInCookie(albumInfo.id));
+                  }}
+                >
+                  Add to Cart
+                </button>
+
+                <Link href="/products/product-lists">
+                  <a>
+                    <button className="buttonStyles">Back to Shop</button>
+                  </a>
+                </Link>
               </div>
-              <input
-                id="number"
-                type="number"
-                placeholder="0"
-                onChange={(e) => {
-                  setCookieCount(e.target.value);
-                  addItemToCookie(props.id);
-                }}
-              ></input>
-
-              <button
-                id={props.id}
-                className="buttonStyles"
-                onClick={(e) => {
-                  newProductInCookie(props.id);
-                }}
-              >
-                Add to Cart
-              </button>
-              {/* <AddToCart id={id} cookieCount={cookieCount}></AddToCart> */}
-
-              <button className="buttonStyles">Back to Shop</button>
             </div>
           </main>
         </Layout>
@@ -142,35 +98,19 @@ export async function getServerSideProps(context) {
   const { getAlbums } = await import('../utilities/database');
   const albums = await getAlbums();
   const allCookies = nextCookies(context);
-  console.log(context);
+  // console.log(context.query.id);
   const productCart = allCookies.productCart || [];
+  const productId = context.query.id;
 
-  const numberOfProducts = Object.values(allCookies);
-  const reducer = (accumulator, currentValue) =>
-    parseInt(accumulator) + parseInt(currentValue);
+  // const props = {};
 
-  function calculateSumOfProducts() {
-    if (numberOfProducts.length > 0) {
-      return numberOfProducts.reduce(reducer);
-    } else {
-      return 0;
-    }
-  }
-
-  const sumTotalOfProducts = calculateSumOfProducts();
-
-  const productId = parseInt(context.query.id);
-  const ProductInCart = allCookies.product || [];
-
+  // if (albums) props.albums = albums;
+  // console.log(productId);
   return {
     props: {
       albums,
-      // sumTotalOfProducts,
-      id: context.query.id,
-      newProductCartFromCookie: productCart,
-      allCookies,
-      productCookies: ProductInCart,
       id: productId,
+      productCart,
     },
   };
 }
